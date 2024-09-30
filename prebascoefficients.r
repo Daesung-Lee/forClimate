@@ -4,7 +4,7 @@ library(prodlim)
 library(tidyverse)
 library(sf)
 
-setwd("C:/Daesung_R/ForClimate/prebas")
+setwd("C:/Daesung_R/ForClimate/prebas") # Set your working directory
 getwd()
 
 # rm(list = ls())
@@ -12,10 +12,12 @@ getwd()
 
 
 # load dGrowthPrebas function ---------------------------------------------
-source("C:/Daesung_R/ForClimate/prebas/Rsrc/dGrowthPrebas.r")
+# source("C:/Daesung_R/ForClimate/prebas/Rsrc/dGrowthPrebas.r")
+devtools::source_url("https://raw.githubusercontent.com/ForModLabUHel/forClimate/main/Rsrc/dGrowthPrebas.r")
 
 # load coordinate ID table --------------------------------------------------------
-coordFin <- fread("C:/Daesung_R/ForClimate/Motti_C/coordinates.dat") 
+# coordFin <- fread("C:/Daesung_R/ForClimate/Motti_C/coordinates.dat") 
+coordFin <- fread("https://raw.githubusercontent.com/ForModLabUHel/forClimate/main/data/coordinates.dat")
 
 # load current climate Rdata -----------------------------------------------
 load("C:/Daesung_R/ForClimate/Motti_C/climate rcp database/CurrClim.rdata") # load the current climate database (0.98 GB)
@@ -43,11 +45,13 @@ siteCoords[1] <- coordFin_x[which.min(abs(coordFin_x - siteCoords_4326[1]))]
 siteCoords[2] <- coordFin_y[which.min(abs(coordFin_y - siteCoords_4326[2]))]
 
 # sample siteInfo_siteX -------------------------------------------------------------
-TestSiteInfo <- read.csv("data/TestSiteInfo.csv",sep=" ")[c(1:7,10:12)]
+# TestSiteInfo <- read.csv("data/TestSiteInfo.csv",sep=" ")[c(1:7,10:12)]
+TestSiteInfo <- read.csv("https://raw.githubusercontent.com/ForModLabUHel/forClimate/main/data/TestSiteInfo.csv",sep=" ")[c(1:7,10:12)]
 siteInfo_siteX <- setNames(as.numeric(TestSiteInfo), colnames(TestSiteInfo))
 
 # sample initVar_siteX ------------------------------------------------------------------
-treedata <- read.csv("data/TestTreeInfo.csv", sep=" ")
+# treedata <- read.csv("data/TestTreeInfo.csv", sep=" ")
+treedata <- read.csv("https://raw.githubusercontent.com/ForModLabUHel/forClimate/main/data/TestTreeInfo.csv", sep=" ")
 treedata_t <- t(treedata[, -1])  
 colnames(treedata_t) <- treedata$variable 
 rownames(treedata_t) <- paste("layer", 1:nrow(treedata_t), sep=" ")
